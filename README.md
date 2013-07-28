@@ -1,9 +1,7 @@
 HopfieldNets.jl
 ===============
 
-A simple implementation of Hopfield nets in Julia using Hebbian learning.
-
-The idea for the letters demo is taken from an implementation of [Hopfield nets in Ruby](https://github.com/bartolsthoorn/hopfield-ruby). The code is based on the presentation of the theory in Mackay's book.
+Discrete and continuous Hopfield nets in Julia.
 
 # Usage Example
 
@@ -17,17 +15,21 @@ We'll restore a corrupted representation fo the letter X specified as a vector o
 
 	n = size(patterns, 1)
 
-	h = DiscreteHopfieldNet(n)
+	net = DiscreteHopfieldNet(n)
 
-	train!(h, patterns)
+	train!(net, patterns)
 
-	settle!(h, 10, true)
+	settle!(net, 10, true)
 
 	Xcorrupt = copy(X)
 	for i = 2:7
 	     Xcorrupt[i] = 1
 	end
 
-	Xrestored = associate!(h, Xcorrupt)
+	Xrestored = associate!(net, Xcorrupt)
 	all(Xcorrupt .== X)
 	all(Xrestored .== X)
+
+# Sources
+
+The idea for the letters demo is taken from an implementation of [Hopfield nets in Ruby](https://github.com/bartolsthoorn/hopfield-ruby). The code is based on the presentation of the theory in Mackay's book and in Storkey's learning rule paper.

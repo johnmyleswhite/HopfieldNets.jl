@@ -7,36 +7,36 @@ patterns = hcat(X, O)
 
 n = size(patterns, 1)
 
-h = DiscreteHopfieldNet(n)
+net = DiscreteHopfieldNet(n)
 
-train!(h, patterns)
+train!(net, patterns)
 
-settle!(h, 10, true)
+settle!(net, 10, true)
 
 # Restore corrupt images
 
 Xcorrupt = copy(X)
 for i = 2:7
-     Xcorrupt[i] = 1
+    Xcorrupt[i] = 1
 end
 
 Ocorrupt = copy(O)
 for i = 2:7
-     Ocorrupt[i] = -1
+    Ocorrupt[i] = -1
 end
 
 display(reshape(X, 7, 6))
 display(reshape(Xcorrupt, 7, 6))
-display(reshape(associate!(h, Xcorrupt), 7, 6))
+display(reshape(associate!(net, Xcorrupt), 7, 6))
 
 display(reshape(O, 7, 6))
 display(reshape(Ocorrupt, 7, 6))
-display(reshape(associate!(h, Ocorrupt), 7, 6))
+display(reshape(associate!(net, Ocorrupt), 7, 6))
 
 # Associate new patterns with familiar patterns
 
 display(reshape(F1, 7, 6))
-display(reshape(associate!(h, F1), 7, 6))
+display(reshape(associate!(net, F1), 7, 6))
 
 display(reshape(F2, 7, 6))
-display(reshape(associate!(h, F2), 7, 6))
+display(reshape(associate!(net, F2), 7, 6))

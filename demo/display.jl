@@ -1,6 +1,6 @@
 using ImageTerm
 
 function display(X::Matrix)
-     imageterm(X)
-     return
+    imageterm(X)
+    return
 end
