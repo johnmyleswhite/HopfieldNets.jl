@@ -1,6 +1,12 @@
 HopfieldNets.jl
 ===============
 
+# NOTICE
+
+**This package is unmaintained. Its reliability is not guaranteed.**
+
+# Introduction
+
 Discrete and continuous Hopfield nets in Julia.
 
 # Usage Example
