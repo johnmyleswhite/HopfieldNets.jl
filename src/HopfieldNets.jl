@@ -1,6 +1,9 @@
 module HopfieldNets
-    export HopfieldNet, DiscreteHopfieldNet, ContinuousHopfieldNet
-    export update!, energy, settle!, train!, associate!, storkeytrain!
+
+    import Base: show
+    export HopfieldNet, DiscreteHopfieldNet, ContinuousHopfieldNet,
+           LearningAlgorithm, Hebbian, Storkey, update!, energy,
+           settle!, train!, associate!, show
 
     include("generic.jl")
     include("discrete.jl")

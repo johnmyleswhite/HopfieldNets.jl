@@ -13,9 +13,9 @@ end
 function update!(net::DiscreteHopfieldNet)
     i = rand(1:length(net.s))
     net.s[i] = dot(net.W[:, i], net.s) > 0 ? +1 : -1
-    return
+    return nothing
 end
 
-function Base.show(io::IO, net::DiscreteHopfieldNet)
-    @printf io "A discrete Hopfield net with %d neurons\n" length(net.s)
+function show(io::IO, net::DiscreteHopfieldNet)
+    @printf io "A discrete Hopfield net with %d neurons" length(net.s)
 end
