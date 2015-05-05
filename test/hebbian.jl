@@ -7,8 +7,8 @@ n = size(patterns, 1)
 dnet = DiscreteHopfieldNet(n)
 cnet = ContinuousHopfieldNet(n)
 
-for net in [dnet] # Why does the training break on cnet?
-    train!(net, patterns, Storkey)
+for net in [dnet, cnet]
+    train!(net, patterns, Hebbian)
 
     e0 = energy(net)
     settle!(net, 1_000, false)
