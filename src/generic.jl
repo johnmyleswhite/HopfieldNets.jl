@@ -19,7 +19,8 @@ function energy(net::HopfieldNet)
     return e
 end
 
-function settle!(net::HopfieldNet,
+# Asynchronously update the network, in random order
+function settle!(net::HopfieldNet;
                  iterations::Integer = 1000,
                  trace::Bool = false)
     for i in 1:iterations
@@ -32,6 +33,37 @@ function settle!(net::HopfieldNet,
     return nothing
 end
 
+# Asynchronously update the network, in a specific order
+function settle!(net::HopfieldNet,
+                 order::Vector{Int};
+                 iterations::Integer = 1000,
+                 trace::Bool = false)
+    @assert size(order) == size(net.s) "Order vector must be of the same size of the networks"
+
+    for i in 1:iterations
+        ind = 1 + ((i - 1) % length(order))
+        update!(net, ind)
+        if trace
+            @printf "%5.0d: %.4f\n" i energy(net)
+        end
+    end
+    return nothing
+end
+
+# Synchronously update the network
+function syncsettle!(net::HopfieldNet;
+                     iterations::Integer = 1000,
+                     trace::Bool = false)
+    for i in 1:iterations
+        net.s = [update(net, j) for j in 1:length(net.s)]
+        if trace
+            @printf "%5.0d: %.4f\n" i energy(net)
+        end
+    end
+    return nothing
+end
+
+# Settle a network starting from a pattern
 function associate!{T <: Real}(net::HopfieldNet,
                                pattern::Vector{T};
                                iterations::Integer = 1000,
